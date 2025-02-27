@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+from django.views.generic.list import ListView
+
+from .models import Recipe, Ingredient, RecipeIngredient
+
 # Create your views here.
 
 recipes_ctx = {    
@@ -67,6 +71,14 @@ recipes_ctx = {
             }
         ]
     }
+
+class RecipeListView(ListView):
+    model = Recipe
+    template_name = 'ledger/recipe_list.html'
+
+class IngredientsListView(ListView):
+    model = RecipeIngredient
+    template_name = 'recipe.html'
 
 def recipe_list(request):
     return render(request, "recipe_list.html", recipes_ctx)
