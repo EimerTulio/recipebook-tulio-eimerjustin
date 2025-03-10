@@ -6,5 +6,17 @@
 
 
 {% block content %}
-    
+    {% if user.is_authenticated %}
+
+    <p>You are already logged in as: {{user.username}}</p>
+
+    {% else %}
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+    </form>
+
+    {% endif %}
 {% endblock %}

@@ -3,13 +3,17 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 
 # Create your models here.
+
+
 class Profile(models.Model):
+    """Model representing a user's profile."""
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     bio = models.TextField(blank=True)
 
     def __str__(self):
         return self.name
+
 
 class Ingredient(models.Model):
     """Model representing an ingredient"""
@@ -21,6 +25,7 @@ class Ingredient(models.Model):
     class Meta:
         verbose_name = 'ingredient'
         verbose_name_plural = 'ingredients'
+
 
 class Recipe(models.Model):
     """Model representing a recipe"""
@@ -41,6 +46,7 @@ class Recipe(models.Model):
     class Meta:
         verbose_name = 'recipe'
         verbose_name_plural = 'recipes'
+
 
 class RecipeIngredient(models.Model):
     """Model representing an ingredient of a recipe"""

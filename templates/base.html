@@ -4,19 +4,16 @@
 </head>
 <body>
     <header>
-        <h1>Recipe Book | {% block header %}{% endblock %}</h1>
+        <h1>Recipe Book {% block header %}{% endblock %}</h1>
         {% if user.is_authenticated %} 
         <form method="POST" action="{% url 'logout' %}">
             {% csrf_token %}
-            {{ form.as_p }}
             <button type="submit">Logout</button>
         </form>
         {% else %}
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Login</button>
-            </form>
+        <a href="{% url 'login' %}">
+            <button>Login</button>
+        </a>
         {% endif %}
     </header>
     {% block content %}{% endblock %}
