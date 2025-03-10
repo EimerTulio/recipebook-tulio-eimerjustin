@@ -1,7 +1,16 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 # Create your models here.
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50)
+    bio = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.name
+
 class Ingredient(models.Model):
     """Model representing an ingredient"""
     name = models.CharField(max_length=100, unique=True)
@@ -16,6 +25,12 @@ class Ingredient(models.Model):
 class Recipe(models.Model):
     """Model representing a recipe"""
     name = models.CharField(max_length=100, unique=True)
+    author = models.ForeignKey(Profile,
+                               on_delete=models.SET_NULL,
+                               null=True,
+                               related_name='recipe')
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -42,5 +57,5 @@ class RecipeIngredient(models.Model):
 
     class Meta:
         unique_together = ["recipe", "ingredient", "quantity"]
-        verbose_name = 'recipe_ingredient'
-        verbose_name_plural = 'recipe_ingredients'
+        verbose_name = 'recipe ingredient'
+        verbose_name_plural = 'recipe ingredients'

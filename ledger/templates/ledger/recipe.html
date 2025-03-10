@@ -4,9 +4,15 @@
 
 {% block title %} Recipe Book {% endblock %}
 
+{% block header %} Recipe {% endblock %}
 
 {% block content %}
-    <h1>{{name}}</h1>
+    <h1>{{recipe.name}}</h1>
+    <h3>Made by: {{recipe.author}}</h3>
+    <h4>
+        Created on: {{recipe.created_on}} <br>
+        Last updated on: {{recipe.updated_on}}
+    </h4>
 
     <h2>Ingredients</h2>
     <table>
@@ -14,7 +20,7 @@
             <th>Ingredient</th>
             <th>Quantity</th>
         </tr>
-        {%for ingredient in ingredients%}
+        {%for ingredient in recipe.ingredients.all%}
         <tr>
             <td>{{ingredient.ingredient.name}}</td>
             <td>{{ingredient.quantity}}</td>

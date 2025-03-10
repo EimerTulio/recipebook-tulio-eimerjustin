@@ -3,6 +3,22 @@
     <title>{% block title %} Recipe Book {% endblock %}</title>
 </head>
 <body>
+    <header>
+        <h1>Recipe Book | {% block header %}{% endblock %}</h1>
+        {% if user.is_authenticated %} 
+        <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Logout</button>
+        </form>
+        {% else %}
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Login</button>
+            </form>
+        {% endif %}
+    </header>
     {% block content %}{% endblock %}
 </body>
 </html>
